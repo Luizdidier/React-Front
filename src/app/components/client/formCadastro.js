@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import {fetchCep} from "./redux_cliente/client_action";
 
 class formCadastro extends Component{
 
@@ -6,8 +9,16 @@ class formCadastro extends Component{
         super(props)
 
         this.state ={
-            client: [],
+            end: '',
         }
+    }
+
+    componentWillMount(){
+
+    }
+
+    componentDidMount(){
+
     }
 
     handleSubmit(e){
@@ -22,7 +33,7 @@ class formCadastro extends Component{
            bairro: bairro.value,
            cidade: cidade.value
        }
-       console.log(client);
+       //console.log(client);
     }
 
     handleClear(){
@@ -36,6 +47,16 @@ class formCadastro extends Component{
         cidade.value = '';
     }
 
+    getEnd(){
+        const {cep, rua, bairro, cidade} = this.refs;
+        this.props.fetchCep(cep.value).then(response => {
+            rua.value = response.payload.data.logradouro;
+            bairro.value = response.payload.data.bairro;
+            cidade.value = response.payload.data.localidade;
+        });
+
+
+    }
 
     render (){
 
@@ -79,33 +100,33 @@ class formCadastro extends Component{
                                 <p className='text-left'>
                                     <input type="text" placeholder="CEP" className="form-control" ref='cep'/>
                                     <span style={{paddingLeft: '5px'}}></span>
-                                    <button type="submit" className="btn btn-space btn-primary">Check</button>
+                                    <button onClick={() => this.getEnd()} className="btn btn-space btn-primary">Check</button>
                                 </p>
                             </span>
                         </div>
 
                          <div className="form-group">
                             <p className='text-left'><label>Rua</label></p>
-                            <input type="text" placeholder="Rua" ref='rua' className="form-control"/>
+                            <input type="text" placeholder="Rua" ref='rua' className="form-control" disabled={true}/>
                         </div>
 
                         <div className="form-group">
                             <p className='text-left'><label>Bairro</label></p>
                            <p className='text-left'>
-                               <input type="text" placeholder="Bairro" ref='bairro' className="form-control" style={{width:'60%'}}/>
+                               <input type="text" placeholder="Bairro" ref='bairro' className="form-control" style={{width:'60%'}} disabled={true}/>
                            </p>
                         </div>
 
                          <div className="form-group">
                             <p className='text-left'><label>Cidade</label></p>
                             <p className='text-left'>
-                                <input type="text" placeholder="Cidade" ref='cidade' className="form-control" style={{width:'60%'}}/>
+                                <input type="text" placeholder="Cidade" ref='cidade' className="form-control" style={{width:'60%'}} disabled={true}/>
                             </p>
                         </div>
 
                         <p className="text-right">
                             <button type="submit" className="btn btn-space btn-primary">Submit</button>
-                            <button onClick={ () => this.handleClear() } className="btn btn-space btn-default">Cancel</button>
+                            <button onClick={() => this.handleClear()} className="btn btn-space btn-default">Cancel</button>
                         </p>
                     </form>
                 </div>
@@ -117,4 +138,10 @@ class formCadastro extends Component{
     }
 }
 
-export default formCadastro;
+const mapStateToProps = state => {
+    const {all} = state.cep || [];
+    return {cep: all};
+};
+
+export default connect(mapStateToProps, {fetchCep})(formCadastro);
+

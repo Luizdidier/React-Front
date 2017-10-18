@@ -126,7 +126,7 @@ class ViewContact extends Component{
                 <tr key={key} style={{borderBottom:'1px solid #ddd'}}>
                 <td className='table-bordered' style={{textAlign:'center'}} >{contact.id} </td>
                 <td className='table-bordered' style={{textAlign:'center'}} >{contact.url} </td>
-                <td> <center> <div style={{background: contact.site_main_color, height: '20px', width: '55px'}}> </div> </center></td>
+                    <td> <center> <div style={{background: contact.site_main_color, height: '20px', width: '55px'}}> </div> </center></td>
                 <td> <center> <div style={{background: contact.site_second_color, height: '20px', width: '55px'}}></div> </center> </td>
                 <td> <center> <div style={{background: contact.site_details_color, height: '20px', width: '55px'}}></div> </center> </td>
                 <td className='table-bordered' style={{textAlign:'center'}}>

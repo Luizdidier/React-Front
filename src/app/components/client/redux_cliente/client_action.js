@@ -4,7 +4,18 @@ export const FETCH_CLIENT = 'FETCH_CLIENT';
 export const CREATE_CLIENT = 'CREATE_CLIENT';
 export const DELETE_CLIENT = 'DELETE_CLIENT';
 export const UPDATE_CLIENT = 'UPDATE_CLIENT';
+export const FETCH_CEP = 'FETCH_CEP';
 
+
+export function fetchCep(cep){
+    const url = 'http://viacep.com.br/ws/';
+    const response = axios.get(url+cep+'/json');
+
+    return{
+        type: FETCH_CEP,
+        payload: response
+    }
+}
 
 export function fetchClient(){
     const url = '';

@@ -1,4 +1,4 @@
-import {CREATE_CLIENT, FETCH_CLIENT, DELETE_CLIENT, UPDATE_CLIENT} from "./client_action";
+import {CREATE_CLIENT, FETCH_CLIENT, DELETE_CLIENT, UPDATE_CLIENT, FETCH_CEP} from "./client_action";
 
 export default (state = [], action) => {
 
@@ -6,6 +6,8 @@ export default (state = [], action) => {
 
         case FETCH_CLIENT:
             return {all:action.payload.data.data};
+        case FETCH_CEP:
+            return {all:action.payload.data};
         case CREATE_CLIENT:
             return {...state, all: [action.payload.data.data, ...state.all || []]};
         case DELETE_CLIENT:
